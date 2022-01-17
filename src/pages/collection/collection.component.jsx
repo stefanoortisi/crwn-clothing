@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { connect } from "react-redux";
 
-import collectionItem from "../../components/collection-item/collection-item.component";
+import CollectionItem from "../../components/collection-item/collection-item.component";
 
 import { selectCollection } from "../../redux/shop/shop.selector";
 import { changeShopParams } from "../../redux/shop/shop.actions";
@@ -10,6 +10,7 @@ import { changeShopParams } from "../../redux/shop/shop.actions";
 import "./collection.styles.scss";
 
 const CollectionPage = ({ collection, changeParams }) => {
+  const { title, items } = collection;
   let params = useParams();
 
   useEffect(() => {
@@ -17,8 +18,13 @@ const CollectionPage = ({ collection, changeParams }) => {
   });
 
   return (
-    <div className="collection">
-      <h2>{collection.title}</h2>
+    <div className="collection-page">
+      <h2 className="title">{title}</h2>
+      <div className="items">
+        {items.map((item) => (
+          <CollectionItem key={item.id} item={item} />
+        ))}
+      </div>
     </div>
   );
 };
